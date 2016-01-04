@@ -1,0 +1,101 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  fill: #4A4A4A;
+}
+
+.titles, h2, h3 {
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 400;
+}
+
+.subheader{
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #949494;
+}
+
+.genderTitle {
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 400;
+	font-size: 22px;
+	text-transform: uppercase;
+	margin: 0px 0px;
+	vertical-align: middle;
+	height: 34px;
+	line-height: 34px;
+}
+
+.insights, .expl {
+	line-height: 175%;
+}
+
+.attribution{
+	font-size: 13px;
+}
+
+.chartWrapper {
+	padding: 30px 0px;
+}
+
+.clickable {
+	cursor: pointer;
+    cursor: hand;
+	font-weight: 700;
+	border-bottom: 1px dashed #999;
+	text-decoration: none; 
+	shape-rendering: crispEdges;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path, .y.axis path {
+  display: none;
+}
+
+.x.axis text, .y.axis text {
+  font: 10px;
+}
+
+.grid .tick {
+    stroke: lightgrey;
+    opacity: 0.7;
+}
+.grid path {
+      stroke-width: 0;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.brush .extent {
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+}
+
+.resize {
+  display: inline !important; /* show when empty */
+  fill: #7A7A7A;
+  fill-opacity: 1;
+  stroke: #7A7A7A;
+  stroke-width: 3px;
+}
+
+.popUpName text {
+  text-anchor: middle;
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+}
+
+.voronoi path {
+  fill: none;
+  pointer-events: all;
+}

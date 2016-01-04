@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+	<meta charset="utf-8">
+	<meta property="og:image" content="http://www.visualcinnamon.com/wp-content/uploads/2015/05/Babynames-Girls-US-1170x516.png"> 
+
+	<!-- Google fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800,700,300' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+	
+	<!-- D3 -->
+	<script src="js/d3.v3.min.js"></script>
+
+	<!-- jQuery -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<!-- Bootstrap 3 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	
+	<!-- Combobox script for the search box -->
+	<script src="js/bootstrap-combobox.js"></script>
+	<link href="css/bootstrap-combobox.css" type="text/css" rel="stylesheet">
+	
+	<!-- Data -->
+	<script src="js/boy_names_us.js"></script>
+	<script src="js/girl_names_us.js"></script>
+	
+	<link href="../css/style.css" type="text/css" rel="stylesheet">
+	
+<body>
+
+	<div class="chartWrapper">
+		<div id="cont" class="container-fluid">
+
+			<!-- Introduction -->
+			<div class="row" style="padding: 5px 0px;">
+				<div class="col-sm-4 column">
+					<div class="row" style="padding: 0px 50px;">
+						<div class="col-md-12 column text-center">
+							<h2 class="titles">The 10 most popular baby names per year since 1880</h2>
+							<span class="subheader">USA</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-7 column">
+					<div class="row">
+						<div class="col-md-12 column" style="padding-top: 10px;">
+							<p><span style="font-size: 12px;" class="expl">Each year almost 4 million babies are born in the US. 
+							Although thinking of 4 million unique names is pretty difficult, theoretically it is not impossible. Nonetheless, there are always many babies given the same name 
+							(of course there are also quite a few children who are given a name that no other child received that year. Not all fall into the category of Tarzan-Lollipop luckily, many of them I like, such as Nyx).<br>
+							In 2013 more than 18000 boys were named Noah in the US and more than 21000 girls named Sophia, the most popular boy and girl name of that year.</span></p>
+							<p><span style="font-size: 12px; color: #949494;" class="expl">The chart below shows the top 10 names per year and per gender since 1880. 
+							You can search for any of the about 50 and 90 unique boy and girl names, respectively, that have entered the top 10 in the last 135 years 
+							and see their rise and fall. Or click on a name to see their full reign in the top 10.
+							Use the smaller overview to change the starting and ending years in the bigger focus chart or switch between genders with the "Boys | Girls" button.
+							You can also start an automatic loop through random names
+							</span></p>
+						</div>
+					</div>
+					<div class="row" style="margin-top:20px;">
+						<div class="col-md-6 column text-center">
+							<span style="font-size: 11px;">Color gives the approximate starting letter of the name</span>
+							<div class="colorLegend"></div>
+						</div>
+						<div class="col-md-6 column text-center">
+							<span style="font-size: 11px;">Line thickness stands for the highest position ever reached by a name</span>
+							<div class="widthLegend"></div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			
+			<hr>
+			
+			<!-- Search box and Boy / Girl button -->
+			<div class="row text-center">
+				<div class="col-sm-3 col-sm-offset-1 column text-center">
+					 <div class="form-group">			
+						<select id="searchBox" class="combobox input-large form-control" style="display: none;" onchange="searchEvent(this.value)">
+						  <option value="" selected="selected">Search name...</option>
+						</select>
+					  </div>
+				</div>
+				<div class="col-sm-2 col-sm-push-2 column text-center">
+					<div id="buttonWrapper" class="btn-group" data-toggle="buttons">
+						<label id="boyButton" class="btn btn-default"><input type="radio" class="btn-options"> Boys </label>
+						<label id="girlButton" class="btn btn-default active"><input type="radio" class="btn-options"> Girls </label>
+					</div>
+				</div>
+				<div class="col-sm-3 col-sm-push-2 column text-center">
+					<div class="col-md-offset-1 col-md-4 column text-center">
+						<span class="titles" style="font-size: 13px;">Loop through names</span>
+					</div>
+					<div class="col-md-5 column text-center">
+						<div id="buttonWrapper" class="btn-group" data-toggle="buttons">
+							<label id="loopStartButton" class="btn btn-default"><input type="radio" class="btn-options"> On </label>
+							<label id="loopStopButton" class="btn btn-default active"><input type="radio" class="btn-options"> Off </label>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-2 col-sm-pull-5 column text-center">
+					<span class="genderTitle">Girls</span>
+				</div>
+			</div>
+			
+			<!-- Focus chart -->
+			<div class="row">
+				<div class="col-md-12 column text-center">
+					<div class="chart focus"></div>
+				</div>
+			</div>
+			
+			<!-- Context chart -->
+			<div class="row">
+				<div class="col-md-12 column text-center">
+					<div class="chart context"></div>
+				</div>
+			</div>
+			
+			<hr>
+			
+			<!-- Interesting insights -->
+			<div class="row" style="padding-top: 0px;">
+				<div class="col-sm-11 column col-sm-offset-1">
+					<h3>Some interesting insights</h3>
+				</div>
+				<div class="col-sm-5 column col-sm-offset-1">
+					<p class="insights">
+					The charts for both girls and boys from the start to the end show different trends throughout the 135 years since 1880. 
+					Girl names have seen more changes than boys, with 86 unique girl names appearing since 1880 versus only 49 unique boy names. 
+					Girl names have also seen a rather even spread of rise and fall, with 45% of the unique girl names already occurring <span id="years_1947_girls" class="clickable">before 1947</span> 
+					(halfway in between 1880 en 2014). For boy names this number is 39%.<br>
+					Boy names, on the other hand, have seen a very mild period of change <span id="years_1965_boys" class="clickable">until about 1965</span>, 
+					with names only climbing or falling by one position over multiple years, when suddenly <span id="Christopher" class="clickable">Christopher</span> 
+					and then <span id="Jason" class="clickable">Jason</span> rose to 2nd position relatively quickly. 
+					The <span id="years_2005_boys" class="clickable">last 10 years</span> have seen a particular "violent" period of boy names rising and falling very quickly.
+					</p>
+					<p class="insights">
+					The most popular girl name in the past 135 years was <span id="Mary" class="clickable">Mary</span>. Reigning on first place for 80 years 
+					(with a small drop to 2nd place between <span id="years_1947_1952_girls" class="clickable">1947 and 1952</span> by <span id="Linda" class="clickable">Linda</span>),
+					and probably much longer before our first data point in 1880, before finally falling out of the top 10 in 1972.<br>
+					For boys it is not so clear. Several names have been extremely popular for long periods of times. Both <span id="John" class="clickable">John</span> and 
+					<span id="Michael" class="clickable">Michael</span> have been on the first position for 44 years, but John was in the top 10 for more than 100 years whereas Michael only about 70 years. 
+					<span id="James" class="clickable">James</span> and <span id="Robert" class="clickable">Robert</span> were also present in the high numbers of top 10 for about 110 years,
+					but never reaching that first position for an extended period. 					
+					</p>
+					<p class="insights">
+					The average boy name is present in the top 10 for <span id="Daniel" class="clickable">28 years</span>. For girl names this is only <span id="Ethel" class="clickable">16 years</span>.
+					</p>
+				</div>
+				<div class="col-sm-5 column">
+					<p class="insights">
+					Almost all names are only present for one rise and fall (or "curve") since 1880, but four names: <span id="Elizabeth" class="clickable">Elizabeth</span>,
+					<span id="Emma" class="clickable">Emma</span>, <span id="William" class="clickable">William</span> and <span id="Joseph" class="clickable">Joseph</span>					
+					fall of for several decades before rejoining the top 10 after the 1980's. 
+					For <span id="Emma" class="clickable">Emma</span> there are more than 100 years between the two occurrences in the 10.
+					</p>
+					<p class="insights">
+					When comparing the growth and fall of names of the US to <a href="http://www.visualcinnamon.com/babynamesnl" target="_blank" class="clickable">the Dutch version</a>, there are several notable differences and similarities. Until the 1960's the most popular girl name in the US was the same
+					as in the Netherlands, <span id="Mary2" class="clickable">Mary</span> (which translates to Maria in Dutch). Mary fell off the chart at the start of the 70's while Maria held out into the 90's in the Netherlands.
+					Exactly the same is true for the most popular boy name <span id="John2" class="clickable">John</span> (which translates to Johannes in Dutch). 
+					Extremely popular in the first half of the 20th century but falling off much faster in the US than the Netherlands. These two are not the only names that appear in both the US and Dutch version. 
+					Even more interesting, both Mary and Maria were temporarily kicked of their 1st place by the same name, <span id="Linda2" class="clickable">Linda</span>. However, in the US this occurred during the 1940's whereas in the Netherlands it happened much later, in 1984.<br>
+					One big difference is that in the Netherlands there was hardly any change in the top 10 until about 1965 whereas in the past 20 years the top 10 has become a hairball of lines with many new names entering and leaving within a few years. 
+					In the US on the other hand there is not really a notable difference in the number of names that rise and fall throughout the entire 135 years 
+					(although in the last 5 years the boy names are beginning to see more changes than before).
+					</p>
+				</div>
+			</div>
+			
+			<hr>
+			
+			<!-- Attribution -->
+			<div class="row">
+				<div class="col-md-12 column text-center">
+					<span class="attribution">Created by Nadieh Bremer | <a href="http://www.visualcinnamon.com" target="_blank">VisualCinnamon.com</a> | 
+					<a href="http://www.visualcinnamon.com/babynamesnl" target="_blank">Check out the Dutch version</a> | 
+					Data: <a href="https://github.com/hadley/data-baby-names/blob/master/baby-names.csv" target="_blank">Link</a> & <a href="http://www.ssa.gov/OACT/babynames/" target="_blank">Link</a></span>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+
+	<script src="js/babynames_us.js"></script>
+	<script src="js/babynames.js"></script>
+</body>
+</html>
